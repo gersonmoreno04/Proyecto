@@ -1,180 +1,183 @@
-/* --- ESTILOS GENERALES --- */
+/* --- 1. IMPORTAR FUENTE MODERNA --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    /* Colores vibrantes y modernos */
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --glass-white: rgba(255, 255, 255, 0.95);
+    --glass-transparent: rgba(255, 255, 255, 0.2);
+    --primary: #6c5ce7;
+    --secondary: #a29bfe;
+    --delete: #ff7675;
+    --text-dark: #2d3436;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif; /* Cambio radical de letra */
+    background: var(--bg-gradient);
+    min-height: 100vh;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-
+    color: var(--text-dark);
 }
 
-/* --- ESTILOS ESPECÍFICOS PARA PANTALLAS DE LOGIN/REGISTRO --- */
-/* Nota: Recuerda poner <body class="login-page"> en tus login.html y register.html */
-body.login-page {
+/* --- 2. CAMBIO EN EL LOGIN / FORMULARIOS --- */
+.login-page {
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
     height: 100vh;
-    background-color: #e9ecef;
 }
 
- .form-container {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
+.form-container, .container, .add-user-section {
+    background: var(--glass-white);
+    border-radius: 20px; /* Bordes muy redondos */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Sombra suave */
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 40px;
 }
 
-/* Inputs del Login/Registro */
-.form-container input {
+/* Inputs redondos y modernos */
+input[type="text"], input[type="email"], input[type="password"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 50px; /* Input cápsula */
+    background-color: #f0f2f5;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: 0.3s;
 }
 
-.form-container button {
+input:focus {
+    background-color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(108, 92, 231, 0.2);
+}
+
+/* --- 3. BOTONES CÁPSULA (CAMBIO RADICAL) --- */
+button {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
+    padding: 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px; /* Totalmente redondos */
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
     cursor: pointer;
-    font-size: 16px;
+    transform: scale(1);
+    transition: transform 0.2s;
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
 }
 
-.form-container button:hover {
-    background-color: #0056b3;
+button:hover {
+    transform: scale(1.05); /* Efecto zoom al pasar el mouse */
 }
 
-/* --- ESTILOS PARA TU DASHBOARD (LA TABLA / INICIO) --- */
-
-/* La barra negra de arriba */
+/* --- 4. NAVBAR FLOTANTE --- */
 .navbar {
+    background: rgba(255, 255, 255, 0.1); /* Transparente */
+    backdrop-filter: blur(10px); /* Efecto borroso de fondo */
+    padding: 20px 50px;
     display: flex;
-    justify-content: space-between; /* Texto a la izq, Botón a la der */
+    justify-content: space-between;
     align-items: center;
-    background-color: #333;
     color: white;
-    padding: 1rem 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.navbar h2 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-/* El botón rojo de "Cerrar Sesión" */
 .btn-logout {
-    background-color: #dc3545; /* Rojo */
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 25px;
+    border-radius: 50px;
     color: white;
-    padding: 10px 20px;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
+    font-weight: 600;
 }
 
 .btn-logout:hover {
-    background-color: #c82333; /* Rojo más oscuro */
+    background: var(--delete);
 }
 
-/* Contenedor para que tu tabla no pegue con los bordes */
-.container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+/* --- 5. TABLA DE "FILAS FLOTANTES" --- */
+/* Aquí es donde cambia el diseño de la tabla por completo */
 
-/* --- ESTILOS DE LA TABLA DE USUARIOS --- */
 .user-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate; /* Importante para separar filas */
+    border-spacing: 0 15px; /* Espacio entre filas (Vertical) */
     margin-top: 20px;
-    margin-bottom: 40px;
 }
 
-.user-table th, .user-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.user-table th {
-    background-color: #f8f9fa;
-    color: #333;
-    font-weight: bold;
-}
-
-.user-table tr:hover {
-    background-color: #f1f1f1; /* Efecto al pasar el mouse por la fila */
-}
-
-/* Botones de Editar/Eliminar */
-.action-btn {
-    text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
-    margin-right: 5px;
-    color: white;
-}
-
-.action-btn.edit {
-    background-color: #ffc107; /* Amarillo */
-    color: #333;
-}
-
-.action-btn.delete {
-    background-color: #dc3545; /* Rojo */
-}
-
-/* --- SECCIÓN DE AGREGAR USUARIO --- */
-.add-user-section {
-    background-color: #f9f9f9;
+.user-table thead th {
+    border: none;
     padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #eee;
+    color: #636e72;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.add-user-section h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #555;
+/* Convertimos cada fila (tr) en una tarjeta blanca */
+.user-table tbody tr {
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.user-table tbody tr:hover {
+    transform: translateY(-3px); /* La fila se levanta al pasar el mouse */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* Bordes redondos solo en los extremos de la fila */
+.user-table td:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.user-table td:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.user-table td {
+    padding: 20px;
+    border: none; /* Quitamos las líneas de tabla viejas */
+}
+
+/* Botones pequeños de acción */
+.action-btn {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.edit {
+    background-color: #e1f5fe;
+    color: #0288d1;
+}
+
+.delete {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+/* Ajuste para el formulario de "Agregar Usuario" abajo */
+.add-user-section {
+    margin-top: 40px;
+    background: #f8f9fa;
 }
 
 .inline-form {
     display: flex;
-    gap: 10px; /* Espacio entre inputs */
-}
-
-.inline-form input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    flex: 1; /* Que ocupen el espacio disponible */
+    gap: 15px;
 }
 
 .inline-form button {
-    background-color: #28a745; /* Verde */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.inline-form button:hover {
-    background-color: #218838;
+    width: auto; /* Botón no ocupa todo el ancho aquí */
+    padding: 0 40px;
+    background: #00b894;
 }
