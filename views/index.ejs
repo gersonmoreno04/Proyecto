@@ -3,38 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Panel de Usuarios</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Lista de usuarios</h1>
-    <table>
-        <tr>
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>CORREO</th>
-                <th>ACCIONES</th>
-        </tr>
-        <% users.forEach(user =>{ %>
-        <tr>
-            <td><%= user.id %></td>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
-            <td>
-                <a href="/edit/<%= user.id%>">Editar</a>
-                <a href="/delete/<%= user.id%>">Eliminar</a>
-            </td>
-        </tr>
-        <% }); %>
-    </table>
 
-    <form action="/add" method="post">
-        <label for="name">Name</label>
-            <input type="text" id="name" name="name">
-        <br>
-        <label for="email">Correo</label>
-            <input type="text" id="email" name="email">
-            <button type="submit">Agregar</button>
-    </form>
-</body>
+    <div class="navbar">
+        <h2>Bienvenido, <%= name %></h2>
+        <a href="/auth/logout" class="btn-logout">Cerrar Sesión</a>
+    </div>
+
+    <div class="container">
+        
+        <h1>Lista de usuarios</h1>
+
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>CORREO</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td>
+                        <a href="/edit/<%= user.id%>" class="action-btn edit">Editar</a>
+                        <a href="/delete/<%= user.id%>" class="action-btn delete">Eliminar</a>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <div class="add-user-section">
+            <h3>Agregar Nuevo Usuario</h3>
+            <form action="/add" method="post" class="inline-form">
+                <input type="text" name="name" placeholder="Nombre" required>
+                <input type="email" name="email" placeholder="Correo" required>
+                <button type="submit">Agregar</button>
+            </form>
+        </div>
+
+    </div> </body>
 </html>

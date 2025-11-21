@@ -1,21 +1,23 @@
-/* Estilos generales suaves */
+/* --- ESTILOS GENERALES --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+
 }
 
-/* --- CLASE ESPECIAL SOLO PARA LOGIN/REGISTRO --- */
-/* Solo las páginas que tengan esta clase se centrarán */
+/* --- ESTILOS ESPECÍFICOS PARA PANTALLAS DE LOGIN/REGISTRO --- */
+/* Nota: Recuerda poner <body class="login-page"> en tus login.html y register.html */
 body.login-page {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #e9ecef;
 }
 
-/* --- LA TARJETA BLANCA DEL LOGIN --- */
-.form-container {
+ .form-container {
     background-color: white;
     padding: 2rem;
     border-radius: 10px;
@@ -25,8 +27,8 @@ body.login-page {
     text-align: center;
 }
 
-/* Inputs y botones */
-input {
+/* Inputs del Login/Registro */
+.form-container input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -35,7 +37,7 @@ input {
     box-sizing: border-box;
 }
 
-button {
+.form-container button {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -43,10 +45,136 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-button:hover {
+.form-container button:hover {
     background-color: #0056b3;
 }
 
-h2 { margin-top: 0; color: #333; }
+/* --- ESTILOS PARA TU DASHBOARD (LA TABLA / INICIO) --- */
+
+/* La barra negra de arriba */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Texto a la izq, Botón a la der */
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.navbar h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* El botón rojo de "Cerrar Sesión" */
+.btn-logout {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #c82333; /* Rojo más oscuro */
+}
+
+/* Contenedor para que tu tabla no pegue con los bordes */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* --- ESTILOS DE LA TABLA DE USUARIOS --- */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.user-table th, .user-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-table th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+}
+
+.user-table tr:hover {
+    background-color: #f1f1f1; /* Efecto al pasar el mouse por la fila */
+}
+
+/* Botones de Editar/Eliminar */
+.action-btn {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 5px;
+    color: white;
+}
+
+.action-btn.edit {
+    background-color: #ffc107; /* Amarillo */
+    color: #333;
+}
+
+.action-btn.delete {
+    background-color: #dc3545; /* Rojo */
+}
+
+/* --- SECCIÓN DE AGREGAR USUARIO --- */
+.add-user-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.add-user-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.inline-form {
+    display: flex;
+    gap: 10px; /* Espacio entre inputs */
+}
+
+.inline-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1; /* Que ocupen el espacio disponible */
+}
+
+.inline-form button {
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.inline-form button:hover {
+    background-color: #218838;
+}

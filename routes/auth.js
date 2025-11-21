@@ -1,62 +1,75 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const db = require('../database'); // Importar la conexión
+const db = require('../database'); // Tu conexión a la DB
 
-// --- Vistas (GET) ---
+// --- VISTAS (GET) ---
 
-// Mostrar el formulario de Login
 router.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/login.html'));
+    // Si ya está logueado, lo mandamos directo a inicio
+    if (req.session.loggedin) {
+        res.redirect('/inicio');
+    } else {
+        res.sendFile(path.join(__dirname, '../public/login.html'));
+    }
 });
 
-// Mostrar el formulario de Registro
 router.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/register.html'));
+    if (req.session.loggedin) {
+        res.redirect('/inicio');
+    } else {
+        res.sendFile(path.join(__dirname, '../public/register.html'));
+    }
 });
 
+// --- LÓGICA (POST) ---
 
-// --- Lógica (POST) ---
-
-// Registrar un nuevo usuario
+// REGISTRO
 router.post('/register', (req, res) => {
     const { username, email, password } = req.body;
     
-    // Validar que no falten datos
-    if (!username || !email || !password) {
-        return res.send('Faltan campos por llenar');
-    }
+    if (!username || !email || !password) return res.send('Faltan datos');
 
-    // Guardar en la base de datos
     const query = 'INSERT INTO login_users SET ?';
     db.query(query, {username, email, password}, (error) => {
         if (error) {
             console.log(error);
-            return res.send('Error al registrar usuario');
+            return res.send('Error al registrar (quizás el correo ya existe)');
         }
-        // Si se guardó bien, ir al login
         res.redirect('/auth/login');
     });
 });
 
-// Iniciar sesión
+// LOGIN (AQUÍ ESTÁ LA MAGIA DE LA SESIÓN)
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    // Buscar si el usuario y la contraseña coinciden
+    // Buscamos usuario y contraseña
     const query = 'SELECT * FROM login_users WHERE username = ? AND password = ?';
     
     db.query(query, [username, password], (err, results) => {
-        if (err) {
-            return res.send('Error en el servidor');
-        }
+        if (err) return res.send('Error de servidor');
 
-        // Si encontró un resultado, el login es correcto
         if (results.length > 0) {
+            // ¡LOGIN CORRECTO!
+            
+            // 1. GUARDAMOS EN MEMORIA QUE YA ENTRÓ
+            req.session.loggedin = true;
+            req.session.name = username; // Guardamos el nombre para saludarlo
+
+            console.log(`Sesión iniciada para: ${username}`);
             res.redirect('/inicio');
         } else {
             res.send('Usuario o contraseña incorrectos');
         }
+    });
+});
+
+// CERRAR SESIÓN (LOGOUT)
+router.get('/logout', (req, res) => {
+    // Destruimos la memoria de la sesión
+    req.session.destroy(() => {
+        res.redirect('/auth/login');
     });
 });
 
