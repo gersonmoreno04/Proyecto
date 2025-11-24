@@ -1,22 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database');
-
-// --- MIDDLEWARE DE SEGURIDAD (EL GUARDIA) ---
 const verificarSesion = (req, res, next) => {
     if (req.session.loggedin) {
-        // Si tiene permiso, pásale
+        //CONDICIONAMOS EL ACCESO
         next();
     } else {
-        // Si no tiene permiso, ¡Vete al Login!
         res.redirect('/auth/login');
     }
 };
 
-// --- RUTAS PROTEGIDAS ---
-// Nota: Todas llevan 'verificarSesion' antes de la función
-
-// Mostrar Tabla (Ruta protegida)
+// Mostrar Tabla
 router.get('/inicio', verificarSesion, (req, res) => {
     const consulta = 'SELECT * FROM users';
     
@@ -24,7 +18,6 @@ router.get('/inicio', verificarSesion, (req, res) => {
         if (err) {
             res.send('Error consultando datos');
         } else {
-            // Renderizamos pasando los usuarios Y el nombre de la sesión
             res.render('index', { 
                 users: results,
                 name: req.session.name 
@@ -33,7 +26,7 @@ router.get('/inicio', verificarSesion, (req, res) => {
     });
 });
 
-// Agregar Usuario (Protegida)
+// METODO PARA AGREGAR USUARIO
 router.post('/add', verificarSesion, (req, res) => {
     const { name, email } = req.body;
     const consulta = 'INSERT INTO users (name, email) VALUE (?,?)';
@@ -43,7 +36,7 @@ router.post('/add', verificarSesion, (req, res) => {
     });
 });
 
-// Vista de Editar (Protegida)
+//METODO PARA EDITAR
 router.get('/edit/:id', verificarSesion, (req, res) => {
     const { id } = req.params;
     const consulta = 'SELECT * FROM users WHERE id = ?';
@@ -53,7 +46,7 @@ router.get('/edit/:id', verificarSesion, (req, res) => {
     });
 });
 
-// Actualizar (Protegida)
+//METODO PARA ACTUALIZAR
 router.post('/update/:id', verificarSesion, (req, res) => {
     const { id } = req.params;
     const { name, email } = req.body;
@@ -64,7 +57,7 @@ router.post('/update/:id', verificarSesion, (req, res) => {
     });
 });
 
-// Eliminar (Protegida)
+//METODO PARA ELIMINAR
 router.get('/delete/:id', verificarSesion, (req, res) => {
     const { id } = req.params;
     const consulta = 'DELETE FROM users Where id=?';

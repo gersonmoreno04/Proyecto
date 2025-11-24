@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const db = require('../database'); // Tu conexión a la DB
-
-// --- VISTAS (GET) ---
+const db = require('../database'); // CONEXION A LA BASE DE DATOS
 
 router.get('/login', (req, res) => {
-    // Si ya está logueado, lo mandamos directo a inicio
+    // CONDICION DEL LOG IN
     if (req.session.loggedin) {
         res.redirect('/inicio');
     } else {
@@ -22,9 +20,7 @@ router.get('/register', (req, res) => {
     }
 });
 
-// --- LÓGICA (POST) ---
-
-// REGISTRO
+// METODO DE REGISTRO DE USUARIO
 router.post('/register', (req, res) => {
     const { username, email, password } = req.body;
     
@@ -40,22 +36,19 @@ router.post('/register', (req, res) => {
     });
 });
 
-// LOGIN (AQUÍ ESTÁ LA MAGIA DE LA SESIÓN)
+// METODO DE LOG IN
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    // Buscamos usuario y contraseña
+    //PREGUNTAMOS POR EL USUARIO Y CONTRASEÑA
     const query = 'SELECT * FROM login_users WHERE username = ? AND password = ?';
     
     db.query(query, [username, password], (err, results) => {
         if (err) return res.send('Error de servidor');
 
         if (results.length > 0) {
-            // ¡LOGIN CORRECTO!
-            
-            // 1. GUARDAMOS EN MEMORIA QUE YA ENTRÓ
             req.session.loggedin = true;
-            req.session.name = username; // Guardamos el nombre para saludarlo
+            req.session.name = username;
 
             console.log(`Sesión iniciada para: ${username}`);
             res.redirect('/inicio');
@@ -65,9 +58,9 @@ router.post('/login', (req, res) => {
     });
 });
 
-// CERRAR SESIÓN (LOGOUT)
+// METODO PARA CERRAR SESION
 router.get('/logout', (req, res) => {
-    // Destruimos la memoria de la sesión
+    //REINICIAMOS LA MEMORIA
     req.session.destroy(() => {
         res.redirect('/auth/login');
     });

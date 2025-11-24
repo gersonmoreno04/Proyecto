@@ -8,7 +8,7 @@ CREATE TABLE users(
 
 USE node_crud;
 
-/* Tabla específica para el Login y Registro */
+/*CREACION DE TABLA PARA EL LOGIN*/
 CREATE TABLE login_users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,

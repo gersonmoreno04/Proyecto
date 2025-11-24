@@ -1,15 +1,15 @@
 const mysql = require('mysql2');
 
-// Configuración de la conexión a la base de datos
+//CONEXION A LA BASE DE DATOS
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '123456', // Contraseña de mi MySQL
+    password: '123456', //CONTRASEÑA DE MI SQL 
     database: 'node_crud',
     port: '3306'
 });
 
-// Verificar si la conexión fue exitosa
+//VERIFICAR CONEXION
 connection.connect((error) => {
     if (error) {
         console.error('Error al conectar a la BD:', error);
@@ -17,6 +17,4 @@ connection.connect((error) => {
     }
     console.log('Conexión a la BD exitosa');
 });
-
-// Exportamos la conexión para usarla en otros archivos
 module.exports = connection;
